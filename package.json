@@ -1,0 +1,26 @@
+{
+  "name": "gulp-lab",
+  "version": "0.0.1",
+  "description": "Test runner for Lab",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/otodockal/gulp-lab"
+  },
+  "keywords": [
+    "gulp",
+    "lab",
+    "test",
+    "unit",
+    "hapi"
+  ],
+  "author": "@otodockal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otodockal/gulp-lab/issues"
+  },
+  "homepage": "https://github.com/otodockal/gulp-lab",
+  "dependencies": {
+    "through2": "~0.4.1"
+  }
+}
