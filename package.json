@@ -1,8 +1,11 @@
 {
   "name": "gulp-lab",
   "version": "0.0.1",
-  "description": "Test runner for Lab",
+  "description": "Gulp test runner for Lab",
   "main": "index.js",
+  "scripts": {
+    "test": "node ./test/test",
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/otodockal/gulp-lab"
@@ -22,5 +25,8 @@
   "homepage": "https://github.com/otodockal/gulp-lab",
   "dependencies": {
     "through2": "~0.4.1"
+  },
+  "devDependencies": {
+    "lab": "~3.0.1"
   }
 }

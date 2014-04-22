@@ -1,7 +1,7 @@
 gulp-lab
 ========
 
-Test runner for [Lab](https://github.com/spumko/lab).
+Gulp test runner for [Lab](https://github.com/spumko/lab).
 
 ## Example
 
@@ -32,5 +32,3 @@ gulp.task('default', function () {
 ## TODO
 
 - Better examples.
-- Tests
-- Add to [Hapi-tutorial](https://github.com/otodockal/hapi-tutorial)
