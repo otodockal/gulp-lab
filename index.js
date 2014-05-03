@@ -1,5 +1,5 @@
-var spawn = require('child_process').spawn;
-var through2 = require('through2');
+var Spawn = require('child_process').spawn;
+var Through2 = require('through2');
 
 
 module.exports = function (options) {
@@ -7,7 +7,7 @@ module.exports = function (options) {
   var paths = [];
   var args = [process.env.PWD + '/node_modules/.bin/lab'];
 
-  return through2.obj(function (file, enc, cb) {
+  return Through2.obj(function (file, enc, cb) {
 
     paths.push(file.path);
 
@@ -30,7 +30,7 @@ module.exports = function (options) {
 
     // Spawn process
 
-    spawn('node', args.concat(paths), {stdio: 'inherit'});
+    Spawn('node', args.concat(paths), {stdio: 'inherit'});
 
     cb();
   });
