@@ -35,7 +35,6 @@ module.exports = function (options) {
     child.on('exit', function () {
 
       cb();
-
     });
 
   });
