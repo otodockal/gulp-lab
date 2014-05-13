@@ -5,6 +5,12 @@ Gulp test runner for [Lab](https://github.com/spumko/lab).
 
 Gulp-lab supports the same [options as Lab](https://github.com/spumko/lab#command-line).
 
+## Install
+
+```
+npm install gulp-lab --save-dev
+```
+
 ## Example 1
 
 ```js
