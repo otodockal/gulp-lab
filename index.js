@@ -30,9 +30,14 @@ module.exports = function (options) {
 
     // Spawn process
 
-    Spawn('node', args.concat(paths), {stdio: 'inherit'});
+    var child = Spawn('node', args.concat(paths), {stdio: 'inherit'});
 
-    cb();
+    child.on('exit', function () {
+
+      cb();
+
+    });
+
   });
 
 }
