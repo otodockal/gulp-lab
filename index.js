@@ -1,13 +1,14 @@
 var Spawn = require('child_process').spawn;
 var Through2 = require('through2');
-var join = require('path').join;
+var Join = require('path').join;
 
 module.exports = function (options) {
 
   var paths = [];
-  // we expect that lab was declared as a project dependencies, and run directly its main script
+
+  // We expect that lab was declared as a project dependencies, and run directly its main script
   // this way, it can be executed on every platform.
-  var args = [join(process.cwd(), 'node_modules', 'lab', 'bin', 'lab')];
+  var args = [Join(process.cwd(), 'node_modules', 'lab', 'bin', 'lab')];
 
   return Through2.obj(function (file, enc, cb) {
 
@@ -20,7 +21,6 @@ module.exports = function (options) {
   }, function (cb) {
 
     // Set options
-
     if (Array.isArray(options)) {
 
       args = args.concat(options);
@@ -31,7 +31,6 @@ module.exports = function (options) {
     }
 
     // Spawn process
-
     var child = Spawn('node', args.concat(paths), {stdio: 'inherit'});
 
     child.on('exit', function () {
