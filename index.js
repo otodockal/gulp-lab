@@ -1,6 +1,9 @@
 var Spawn = require('child_process').spawn;
 var Through2 = require('through2');
 var Join = require('path').join;
+var PluginError = require('gulp-util').PluginError;
+
+const PLUGIN_NAME = 'gulp-lab';
 
 module.exports = function (options) {
 
@@ -32,9 +35,12 @@ module.exports = function (options) {
 
     // Spawn process
     var child = Spawn('node', args.concat(paths), {stdio: 'inherit'});
+    var stream = this;
 
-    child.on('exit', function () {
-
+    child.on('exit', function (code) {
+      if (code !== 0) {
+        stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab exited with errors.'));
+      }
       cb();
     });
 

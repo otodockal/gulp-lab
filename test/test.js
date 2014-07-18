@@ -34,4 +34,18 @@ describe('index', function () {
     stream.end(new Gutil.File({path: './test/truthy.js'}));
   });
 
+  it('should emit an error if the tests fail', function (done) {
+
+    var stream = Glab('-s -l');
+    var failure;
+
+    stream.once("error", function (error) { failure = error; });
+    stream.pipe(es.wait(function () {
+      expect(failure, 'no error').to.be.an.instanceOf(Error);
+      expect(failure.message, 'message').to.match(/exited with errors/i);
+      done();
+    }));
+    stream.end(new Gutil.File({path: './test/fail.js'}));
+  });
+
 });
