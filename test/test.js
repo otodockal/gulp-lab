@@ -1,6 +1,7 @@
 var Lab = require('lab');
 var Gutil = require('gulp-util');
-var Glab = require('./../index');
+var Glab = require('../index');
+var es = require('event-stream');
 
 var expect = Lab.expect;
 var describe = Lab.experiment;
@@ -21,20 +22,16 @@ describe('index', function () {
 
     var stream = Glab('-v -l');
 
-    stream.write(new Gutil.File({path: './test/truthy.js'}));
-    stream.end();
-
-    done();
+    stream.pipe(es.wait(done));
+    stream.end(new Gutil.File({path: './test/truthy.js'}));
   });
 
   it('should run truthy test by gulp-lab module with Array options', function (done) {
 
     var stream = Glab(['-s', '-l']);
 
-    stream.write(new Gutil.File({path: './test/truthy.js'}));
-    stream.end();
-
-    done();
+    stream.pipe(es.wait(done));
+    stream.end(new Gutil.File({path: './test/truthy.js'}));
   });
 
 });
