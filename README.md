@@ -19,7 +19,7 @@ var gulp = require('gulp');
 var lab = require('gulp-lab');
 
 gulp.task('test', function () {
-    gulp.src('test')
+    return gulp.src('test')
       .pipe(lab());
 });
 
@@ -35,7 +35,7 @@ var gulp = require('gulp');
 var lab = require('gulp-lab');
 
 gulp.task('test', function () {
-    gulp.src('test')
+    return gulp.src('test')
       .pipe(lab('-v -l'));
 });
 
@@ -50,7 +50,7 @@ var gulp = require('gulp');
 var lab = require('gulp-lab');
 
 gulp.task('test', function () {
-    gulp.src('test')
+    return gulp.src('test')
       .pipe(lab(['-v','-l']));
 });
 
@@ -68,7 +68,7 @@ var jshint = require('gulp-jshint');
 var lab = require('gulp-lab');
 
 gulp.task('test', function () {
-    gulp.src('./test/**/*.js')
+    return gulp.src('./test/**/*.js')
       .pipe(lab('-v -l'))
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
