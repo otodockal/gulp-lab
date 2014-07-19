@@ -3,7 +3,7 @@ var Through2 = require('through2');
 var Join = require('path').join;
 var PluginError = require('gulp-util').PluginError;
 
-const PLUGIN_NAME = 'gulp-lab';
+var PLUGIN_NAME = 'gulp-lab';
 
 module.exports = function (options) {
 
