@@ -39,7 +39,7 @@ describe('index', function () {
     var stream = Glab('-s -l');
     var failure;
 
-    stream.once("error", function (error) { failure = error; });
+    stream.once('error', function (error) { failure = error; });
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/exited with errors/i);
