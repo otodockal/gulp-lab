@@ -5,9 +5,21 @@ var PluginError = require('gulp-util').PluginError;
 
 var PLUGIN_NAME = 'gulp-lab';
 
+
+function _isObject (val) {
+
+  return Object.prototype.toString.call(val) === '[object Object]';
+}
+
+function _isString (val) {
+
+  return typeof val === 'string';
+}
+
 module.exports = function (options) {
 
   var paths = [];
+  var emitErr = false;
 
   // We expect that lab was declared as a project dependencies, and run directly its main script
   // this way, it can be executed on every platform.
@@ -23,27 +35,50 @@ module.exports = function (options) {
 
   }, function (cb) {
 
-    // Set options
-    if (Array.isArray(options)) {
+    var stream = this;
 
-      args = args.concat(options);
 
-    } else if (typeof options === 'string') {
+    // String options
+    if (_isString(options)) {
 
       args = args.concat(options.split(' '));
+
+    // Object options    
+    } else if (_isObject(options)) {
+
+      if (!_isObject(options.opt)) {
+
+        stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab - Object property "opt" must be an object!'));
+        cb();
+        return;
+      }
+
+      if (options.opt && typeof options.opt.emitLabError !== 'boolean') {
+        
+        stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab - Object property "emitLabError" must be a boolen!'));
+        cb();
+        return;
+      }      
+
+      // cmd is optional
+      if (_isString(options.cmd)) {
+
+        args = args.concat(options.cmd.split(' '));
+      }
+
+      emitErr = options.opt.emitLabError;
     }
+
 
     // Spawn process
     var child = Spawn('node', args.concat(paths), {stdio: 'inherit'});
-    var stream = this;
 
     child.on('exit', function (code) {
-      if (code !== 0) {
+      if (code !== 0 && emitErr) {
         stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab exited with errors.'));
       }
       cb();
     });
 
   });
-
 }
