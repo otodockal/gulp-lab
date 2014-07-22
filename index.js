@@ -46,14 +46,14 @@ module.exports = function (options) {
     // Object options    
     } else if (_isObject(options)) {
 
-      if (!_isObject(options.opt)) {
+      if (!_isObject(options.opts)) {
 
-        stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab - Object property "opt" must be an object!'));
+        stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab - Object property "opts" must be an object!'));
         cb();
         return;
       }
 
-      if (options.opt && typeof options.opt.emitLabError !== 'boolean') {
+      if (options.opts && typeof options.opts.emitLabError !== 'boolean') {
         
         stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab - Object property "emitLabError" must be a boolen!'));
         cb();
@@ -66,7 +66,7 @@ module.exports = function (options) {
         args = args.concat(options.args.split(' '));
       }
 
-      emitErr = options.opt.emitLabError;
+      emitErr = options.opts.emitLabError;
     }
 
 

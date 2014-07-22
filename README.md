@@ -27,7 +27,7 @@ gulp.task('test', function () {
   return gulp.src('./test/**/*.js')
     .pipe(lab({
       args: '-v',
-      opt: {
+      opts: {
         emitLabError: true
       }
     }));
@@ -92,7 +92,7 @@ gulp.task('test', function () {
   return gulp.src('./test/**/*.js')
     .pipe(lab({
       args: '-v',
-      opt: {
+      opts: {
         emitLabError: true
       }
     }))

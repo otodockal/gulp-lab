@@ -26,7 +26,7 @@ describe('index', function () {
     stream.end(new Gutil.File({path: './test/truthy.js'}));
   });
 
-  it('should emit an error if options object is passed with missing opt property', function (done) {
+  it('should emit an error if options object is passed with missing opts property', function (done) {
 
     var failure;
     var stream = Glab({
@@ -36,7 +36,7 @@ describe('index', function () {
     stream.once('error', function (error) { failure = error; });
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
-      expect(failure.message, 'message').to.match(/Object property "opt" must be an object!/i);
+      expect(failure.message, 'message').to.match(/Object property "opts" must be an object!/i);
       done();
     }));
     stream.end();
@@ -47,7 +47,7 @@ describe('index', function () {
     var failure;
     var stream = Glab({
       args: '-s -l',
-      opt: {}
+      opts: {}
     });
 
     stream.once('error', function (error) { failure = error; });
@@ -64,7 +64,7 @@ describe('index', function () {
     var failure;
     var stream = Glab({
       args: '-s -l',
-      opt: {
+      opts: {
         emitLabError: 'true'
       }
     });
@@ -83,7 +83,7 @@ describe('index', function () {
     var failure;
     var stream = Glab({
       args: '-s -l',
-      opt: {
+      opts: {
         emitLabError: true
       }
     });
@@ -102,7 +102,7 @@ describe('index', function () {
     var failure;
     var stream = Glab({
       args: '-s -l',
-      opt: {
+      opts: {
         emitLabError: false
       }
     });
@@ -119,7 +119,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      opt: {
+      opts: {
         emitLabError: true
       }
     });
@@ -137,7 +137,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      opt: {
+      opts: {
         emitLabError: false
       }
     });
