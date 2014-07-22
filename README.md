@@ -16,7 +16,7 @@ npm install gulp-lab --save-dev
 Gulp-lab can emit an Error when tests fails now. 
 Simply use new options object with property "emitLabError" on true! By default, "emitLabError" is false.
 
-Property "cmd" is optional!
+Property "args" is optional!
 
 ```js
 // gulpfile.js
@@ -26,7 +26,7 @@ var lab = require('gulp-lab');
 gulp.task('test', function () {
   return gulp.src('./test/**/*.js')
     .pipe(lab({
-      cmd: '-v',
+      args: '-v',
       opt: {
         emitLabError: true
       }
@@ -91,7 +91,7 @@ var lab = require('gulp-lab');
 gulp.task('test', function () {
   return gulp.src('./test/**/*.js')
     .pipe(lab({
-      cmd: '-v',
+      args: '-v',
       opt: {
         emitLabError: true
       }

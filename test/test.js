@@ -30,7 +30,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      cmd: '-s -l'
+      args: '-s -l'
     });
 
     stream.once('error', function (error) { failure = error; });
@@ -46,7 +46,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      cmd: '-s -l',
+      args: '-s -l',
       opt: {}
     });
 
@@ -63,7 +63,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      cmd: '-s -l',
+      args: '-s -l',
       opt: {
         emitLabError: 'true'
       }
@@ -82,7 +82,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      cmd: '-s -l',
+      args: '-s -l',
       opt: {
         emitLabError: true
       }
@@ -101,7 +101,7 @@ describe('index', function () {
 
     var failure;
     var stream = Glab({
-      cmd: '-s -l',
+      args: '-s -l',
       opt: {
         emitLabError: false
       }
@@ -115,7 +115,7 @@ describe('index', function () {
     stream.end(new Gutil.File({path: './test/fail.js'}));
   });
 
-  it('should emit an error if the test fail - missing cmd', function (done) {
+  it('should emit an error if the test fail - missing args', function (done) {
 
     var failure;
     var stream = Glab({
@@ -133,7 +133,7 @@ describe('index', function () {
     stream.end(new Gutil.File({path: './test/fail.js'}));
   });
 
-  it('should NOT emit an error if the test fail - missing cmd', function (done) {
+  it('should NOT emit an error if the test fail - missing args', function (done) {
 
     var failure;
     var stream = Glab({

@@ -61,9 +61,9 @@ module.exports = function (options) {
       }      
 
       // cmd is optional
-      if (_isString(options.cmd)) {
+      if (_isString(options.args)) {
 
-        args = args.concat(options.cmd.split(' '));
+        args = args.concat(options.args.split(' '));
       }
 
       emitErr = options.opt.emitLabError;
