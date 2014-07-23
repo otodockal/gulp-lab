@@ -1,8 +1,13 @@
+var child_process = require('child_process');
+var EventEmitter = require('events').EventEmitter;
 var Lab = require('lab');
 var Gutil = require('gulp-util');
 var Glab = require('../index');
 var es = require('event-stream');
+var sinon = require('sinon');
 
+var after = Lab.after;
+var before = Lab.before;
 var expect = Lab.expect;
 var describe = Lab.experiment;
 var it = Lab.test;
@@ -148,6 +153,45 @@ describe('index', function () {
       done();
     }));
     stream.end(new Gutil.File({path: './test/fail.js'}));
+  });
+
+  describe('spawning the Lab process', function () {
+
+    var argv;
+    var path;
+    var spawn;
+
+    before(function (done) {
+      var child = new EventEmitter();
+      var stream;
+
+      argv = process.execArgv;
+      path = process.execPath;
+      spawn = sinon.stub(child_process, 'spawn').returns(child);
+
+      process.execArgv = [ '--harmony' ];
+      process.execPath = 'nodejs';
+
+      // Returned stream should never do anything since spawn is stubbed out.
+      stream = Glab('-d -s -l');
+      stream.pipe(es.wait(done));
+      stream.end(new Gutil.File({path: '/test/truthy.js' }));
+      child.emit('exit', 0);
+    });
+
+    after(function (done) {
+      spawn.restore();
+      process.execArgv = argv;
+      process.execPath = path;
+      done();
+    });
+
+    it('invokes the child with the same node arguments as the parent', function (done) {
+      expect(spawn.calledOnce, 'spawn not called').to.be.true;
+      expect(spawn.firstCall.args[0], 'wrong command').to.equal('nodejs');
+      expect(spawn.firstCall.args[1][0], 'bad argument').to.equal('--harmony');
+      done();
+    });
   });
 
 });
