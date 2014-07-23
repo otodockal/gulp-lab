@@ -1,4 +1,4 @@
-var Spawn = require('child_process').spawn;
+var child_process = require('child_process');
 var Through2 = require('through2');
 var Join = require('path').join;
 var PluginError = require('gulp-util').PluginError;
@@ -71,7 +71,7 @@ module.exports = function (options) {
 
 
     // Spawn process
-    var child = Spawn('node', args.concat(paths), {stdio: 'inherit'});
+    var child = child_process.spawn(process.execPath, process.execArgv.concat(args.concat(paths)), {stdio: 'inherit'});
 
     child.on('exit', function (code) {
       if (code !== 0 && emitErr) {
