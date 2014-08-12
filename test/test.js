@@ -31,6 +31,14 @@ describe('index', function () {
     stream.end(new Gutil.File({path: './test/truthy.js'}));
   });
 
+  it('should run truthy test by gulp-lab module with Array options', function(done) {
+
+    var stream = Glab(['-v', '-l']);
+
+    stream.pipe(es.wait(done));
+    stream.end(new Gutil.File({path: './test/truthy.js'}));
+  });
+
   it('should emit an error if options object is passed with missing opts property', function (done) {
 
     var failure;
@@ -150,6 +158,25 @@ describe('index', function () {
     stream.once('error', function (error) { failure = error; });
     stream.pipe(es.wait(function () {
       expect(failure).to.equal(undefined);
+      done();
+    }));
+    stream.end(new Gutil.File({path: './test/fail.js'}));
+  });
+
+  it('should emit an error when running fail with Array arguments and filter on tests', function (done) {
+
+    var failure;
+    var stream = Glab({
+      args: ['-s', '-l', '-g should fail test'],
+      opts: {
+        emitLabError: true
+      }
+    });
+
+    stream.once('error', function (error) { failure = error; });
+    stream.pipe(es.wait(function () {
+      expect(failure, 'no error').to.be.an.instanceOf(Error);
+      expect(failure.message, 'message').to.match(/exited with errors/i);
       done();
     }));
     stream.end(new Gutil.File({path: './test/fail.js'}));
