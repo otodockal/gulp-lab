@@ -43,8 +43,11 @@ module.exports = function (options) {
 
       args = args.concat(options.split(' '));
 
-    // Object options    
-    } else if (_isObject(options)) {
+    } else if (Array.isArray(options)) { // Array options
+
+      args = args.concat(options);
+
+    } else if (_isObject(options)) { // Object options
 
       if (!_isObject(options.opts)) {
 
@@ -54,16 +57,19 @@ module.exports = function (options) {
       }
 
       if (options.opts && typeof options.opts.emitLabError !== 'boolean') {
-        
+
         stream.emit('error', new PluginError(PLUGIN_NAME, 'Lab - Object property "emitLabError" must be a boolen!'));
         cb();
         return;
-      }      
+      }
 
       // cmd is optional
       if (_isString(options.args)) {
 
         args = args.concat(options.args.split(' '));
+      } else if (Array.isArray(options.args)) {
+
+        args = args.concat(options.args);
       }
 
       emitErr = options.opts.emitLabError;
