@@ -16,6 +16,24 @@ function _isString (val) {
   return typeof val === 'string';
 }
 
+/**
+ * Merge args with Array or String args from options
+ */
+function _mergeArgs (args, optionsArgs) {
+
+  if (_isString(optionsArgs)) { // String options
+
+    args = args.concat(optionsArgs.split(' '));
+
+  } else if (Array.isArray(optionsArgs)) { // Array options
+
+    args = args.concat(optionsArgs);
+  }
+
+  return args;
+}
+
+
 module.exports = function (options) {
 
   var paths = [];
@@ -38,16 +56,7 @@ module.exports = function (options) {
     var stream = this;
 
 
-    // String options
-    if (_isString(options)) {
-
-      args = args.concat(options.split(' '));
-
-    } else if (Array.isArray(options)) { // Array options
-
-      args = args.concat(options);
-
-    } else if (_isObject(options)) { // Object options
+    if (_isObject(options)) { // Object options
 
       if (!_isObject(options.opts)) {
 
@@ -63,16 +72,15 @@ module.exports = function (options) {
         return;
       }
 
-      // cmd is optional
-      if (_isString(options.args)) {
+      // args is optional
+      args = _mergeArgs(args, options.args);
 
-        args = args.concat(options.args.split(' '));
-      } else if (Array.isArray(options.args)) {
-
-        args = args.concat(options.args);
-      }
-
+      // emit lab error?
       emitErr = options.opts.emitLabError;
+
+    } else { // String or Array options
+
+      args = _mergeArgs(args, options);
     }
 
 
