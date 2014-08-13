@@ -11,45 +11,15 @@ Gulp-lab supports the same [options as Lab](https://github.com/spumko/lab#comman
 npm install gulp-lab --save-dev
 ```
 
-## New API!
+## NOTES
 
-Gulp-lab can emit an Error when tests fails now. 
-Simply use new options object with property "emitLabError" on true! By default, "emitLabError" is false.
+Gulp-lab can be used with String, Array and Object options or without.
 
-Property "args" is optional!
-
-```js
-// gulpfile.js
-var gulp = require('gulp');
-var lab = require('gulp-lab');
-
-gulp.task('test', function () {
-  return gulp.src('./test/**/*.js')
-    .pipe(lab({
-      args: '-v',
-      opts: {
-        emitLabError: true
-      }
-    }));
-});
-
-gulp.task('default', 'test');
-```
-
-NOTE: You can still use string options like
-
-```js
-lab('-v')
-```
-
-or 
-
-```js
-lab();
-```
+Gulp-lab can emit an Error when tests fails.
+Simply use options object with property "emitLabError" on true! By default, "emitLabError" is false.
 
 
-## Example 1
+## Example 1 - without options
 
 ```js
 // gulpfile.js
@@ -74,13 +44,30 @@ var lab = require('gulp-lab');
 
 gulp.task('test', function () {
     return gulp.src('test')
-      .pipe(lab('-v -l'));
+      .pipe(lab('-v -l -C'));
 });
 
 gulp.task('default', 'test');
 ```
 
-## NEW: Example 3 - options by an Object
+## Example 3 - options by an Array
+
+```js
+// gulpfile.js
+var gulp = require('gulp');
+var lab = require('gulp-lab');
+
+gulp.task('test', function () {
+    return gulp.src('test')
+      .pipe(lab(['-v', '-l', '-C']));
+});
+
+gulp.task('default', 'test');
+```
+
+## Example 4 - options by an Object in conjunction with JSHint
+
+NOTE: **args** property can be either a **String** or an **Array** and is **OPTIONAL**!
 
 ```js
 // gulpfile.js
@@ -91,7 +78,7 @@ var lab = require('gulp-lab');
 gulp.task('test', function () {
   return gulp.src('./test/**/*.js')
     .pipe(lab({
-      args: '-v',
+      args: '-v -C',
       opts: {
         emitLabError: true
       }
@@ -101,28 +88,4 @@ gulp.task('test', function () {
 });
 
 gulp.task('default', 'test');
-```
-
-
-## Example 4 - more complex example
-
-```js
-// gulpfile.js
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
-var jshint = require('gulp-jshint');
-var lab = require('gulp-lab');
-
-gulp.task('test', function () {
-    return gulp.src('./test/**/*.js')
-      .pipe(lab('-v -l'))
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'));
-});
-
-// Restart the server for changes.
-gulp.task('default', function () {
-  nodemon({ script: 'server.js', ext: 'html js css' })
-    .on('start', 'test');
-});
 ```
