@@ -1,6 +1,7 @@
 var Lab = require('lab');
 
-var it = Lab.test;
+var lab = exports.lab = Lab.script();
+var it = lab.test;
 var expect = Lab.expect;
 
 

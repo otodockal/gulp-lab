@@ -6,11 +6,12 @@ var Glab = require('../index');
 var es = require('event-stream');
 var sinon = require('sinon');
 
-var after = Lab.after;
-var before = Lab.before;
+var lab = exports.lab = Lab.script();
+var after = lab.after;
+var before = lab.before;
 var expect = Lab.expect;
-var describe = Lab.experiment;
-var it = Lab.test;
+var describe = lab.experiment;
+var it = lab.test;
 
 describe('index', function () {
 
