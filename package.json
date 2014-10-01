@@ -1,6 +1,6 @@
 {
   "name": "gulp-lab",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gulp test runner for Lab",
   "main": "index.js",
   "scripts": {
