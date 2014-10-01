@@ -4,7 +4,7 @@
   "description": "Gulp test runner for Lab",
   "main": "index.js",
   "scripts": {
-    "test": "node ./test/test -s"
+    "test": "lab ./test/test -s"
   },
   "repository": {
     "type": "git",
