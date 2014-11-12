@@ -1,5 +1,6 @@
 var child_process = require('child_process');
 var EventEmitter = require('events').EventEmitter;
+var Code = require('code');
 var Lab = require('lab');
 var Gutil = require('gulp-util');
 var Glab = require('../index');
@@ -9,7 +10,7 @@ var sinon = require('sinon');
 var lab = exports.lab = Lab.script();
 var after = lab.after;
 var before = lab.before;
-var expect = Lab.expect;
+var expect = Code.expect;
 var describe = lab.experiment;
 var it = lab.test;
 
