@@ -31,7 +31,7 @@ gulp.task('test', function () {
       .pipe(lab());
 });
 
-gulp.task('default', 'test');
+gulp.task('default', ['test']);
 ```
 
 
@@ -47,7 +47,7 @@ gulp.task('test', function () {
       .pipe(lab('-v -l -C'));
 });
 
-gulp.task('default', 'test');
+gulp.task('default', ['test']);
 ```
 
 ## Example 3 - options by an Array
@@ -62,7 +62,7 @@ gulp.task('test', function () {
       .pipe(lab(['-v', '-l', '-C']));
 });
 
-gulp.task('default', 'test');
+gulp.task('default', ['test']);
 ```
 
 ## Example 4 - options by an Object in conjunction with JSHint
@@ -87,5 +87,5 @@ gulp.task('test', function () {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('default', 'test');
+gulp.task('default', ['test']);
 ```
