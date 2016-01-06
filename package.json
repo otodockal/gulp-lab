@@ -1,10 +1,10 @@
 {
   "name": "gulp-lab",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Gulp test runner for Lab",
   "main": "index.js",
   "scripts": {
-    "test": "lab ./test/test.js -s"
+    "test": "lab ./test/test.js -s -l"
   },
   "repository": {
     "type": "git",
