@@ -1,6 +1,6 @@
 {
   "name": "gulp-lab",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Gulp test runner for Lab",
   "main": "index.js",
   "scripts": {
@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/otodockal/gulp-lab",
   "dependencies": {
-    "gulp-util": "~3.0.0",
-    "through2": "~0.5.1"
+    "gulp-util": "3.0.0",
+    "through2": "0.5.1"
   },
   "devDependencies": {
-    "event-stream": "^3.1.5",
-    "lab": "^8.0.1",
-    "code": "^2.1.0",
-    "sinon": "^1.10.3"
+    "event-stream": "3.1.5",
+    "lab": "11.2.1",
+    "code": "4.0.0",
+    "sinon": "1.17.7"
   }
 }
