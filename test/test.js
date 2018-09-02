@@ -2,8 +2,9 @@ var child_process = require('child_process');
 var EventEmitter = require('events').EventEmitter;
 var Code = require('code');
 var Lab = require('lab');
-var Gutil = require('gulp-util');
+var Vinyl = require('vinyl');
 var Glab = require('../index');
+var Stream = require('stream');
 var es = require('event-stream');
 var sinon = require('sinon');
 
@@ -20,7 +21,7 @@ describe('index', function () {
 
     var stream = Glab();
 
-    expect(Gutil.isStream(stream)).to.equal(true);
+    expect(stream instanceof Stream).to.equal(true);
 
     done();
   });
@@ -30,7 +31,7 @@ describe('index', function () {
     var stream = Glab('-v -l');
 
     stream.pipe(es.wait(done));
-    stream.end(new Gutil.File({path: './test/truthy.js'}));
+    stream.end(new Vinyl({path: './test/truthy.js'}));
   });
 
   it('should run truthy test by gulp-lab module with Array options', function(done) {
@@ -38,7 +39,7 @@ describe('index', function () {
     var stream = Glab(['-v', '-l']);
 
     stream.pipe(es.wait(done));
-    stream.end(new Gutil.File({path: './test/truthy.js'}));
+    stream.end(new Vinyl({path: './test/truthy.js'}));
   });
 
   it('should emit an error if options object is passed with missing opts property', function (done) {
@@ -109,7 +110,7 @@ describe('index', function () {
       expect(failure.message, 'message').to.match(/exited with errors/i);
       done();
     }));
-    stream.end(new Gutil.File({path: './test/fail.js'}));
+    stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
   it('should NOT emit an error if the test fail', function (done) {
@@ -127,7 +128,7 @@ describe('index', function () {
       expect(failure).to.equal(undefined);
       done();
     }));
-    stream.end(new Gutil.File({path: './test/fail.js'}));
+    stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
   it('should emit an error if the test fail - missing args', function (done) {
@@ -145,7 +146,7 @@ describe('index', function () {
       expect(failure.message, 'message').to.match(/exited with errors/i);
       done();
     }));
-    stream.end(new Gutil.File({path: './test/fail.js'}));
+    stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
   it('should NOT emit an error if the test fail - missing args', function (done) {
@@ -162,7 +163,7 @@ describe('index', function () {
       expect(failure).to.equal(undefined);
       done();
     }));
-    stream.end(new Gutil.File({path: './test/fail.js'}));
+    stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
   it('should emit an error when running fail with Array arguments and filter on tests', function (done) {
@@ -181,7 +182,7 @@ describe('index', function () {
       expect(failure.message, 'message').to.match(/exited with errors/i);
       done();
     }));
-    stream.end(new Gutil.File({path: './test/fail.js'}));
+    stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
   describe('spawning the Lab process', function () {
@@ -204,7 +205,7 @@ describe('index', function () {
       // Returned stream should never do anything since spawn is stubbed out.
       stream = Glab('-d -s -l');
       stream.pipe(es.wait(done));
-      stream.end(new Gutil.File({path: '/test/truthy.js' }));
+      stream.end(new Vinyl({path: '/test/truthy.js' }));
       child.emit('exit', 0);
     });
 

@@ -1,7 +1,7 @@
 var child_process = require('child_process');
 var Through2 = require('through2');
 var Join = require('path').join;
-var PluginError = require('gulp-util').PluginError;
+var PluginError = require('plugin-error');
 
 var PLUGIN_NAME = 'gulp-lab';
 
@@ -95,4 +95,4 @@ module.exports = function (options) {
     });
 
   });
-}
+};
