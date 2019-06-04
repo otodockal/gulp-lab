@@ -1,7 +1,7 @@
 var child_process = require('child_process');
 var EventEmitter = require('events').EventEmitter;
 var Code = require('code');
-var Lab = require('lab');
+var Lab = require('@hapi/lab');
 var Vinyl = require('vinyl');
 var Glab = require('../index');
 var Stream = require('stream');
@@ -15,34 +15,34 @@ var expect = Code.expect;
 var describe = lab.experiment;
 var it = lab.test;
 
+function noop() {}
+
 describe('index', function () {
 
-  it('should return stream', function (done) {
+  it('should return stream', function () {
 
     var stream = Glab();
 
     expect(stream instanceof Stream).to.equal(true);
-
-    done();
   });
 
-  it('should run truthy test by gulp-lab module with String options', function (done) {
+  it('should run truthy test by gulp-lab module with String options', function () {
 
     var stream = Glab('-v -l');
 
-    stream.pipe(es.wait(done));
+    stream.pipe(es.wait(noop));
     stream.end(new Vinyl({path: './test/truthy.js'}));
   });
 
-  it('should run truthy test by gulp-lab module with Array options', function(done) {
+  it('should run truthy test by gulp-lab module with Array options', function() {
 
     var stream = Glab(['-v', '-l']);
 
-    stream.pipe(es.wait(done));
+    stream.pipe(es.wait(noop));
     stream.end(new Vinyl({path: './test/truthy.js'}));
   });
 
-  it('should emit an error if options object is passed with missing opts property', function (done) {
+  it('should emit an error if options object is passed with missing opts property', function () {
 
     var failure;
     var stream = Glab({
@@ -53,12 +53,11 @@ describe('index', function () {
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/Object property "opts" must be an object!/i);
-      done();
     }));
     stream.end();
   });
 
-  it('should emit an error if options object is passed with missing emitLabError property', function (done) {
+  it('should emit an error if options object is passed with missing emitLabError property', function () {
 
     var failure;
     var stream = Glab({
@@ -70,12 +69,11 @@ describe('index', function () {
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/Object property "emitLabError" must be a boolen!/i);
-      done();
     }));
     stream.end();
   });
 
-  it('should emit an error if options object is passed with NON boolean emitLabError property', function (done) {
+  it('should emit an error if options object is passed with NON boolean emitLabError property', function () {
 
     var failure;
     var stream = Glab({
@@ -89,12 +87,11 @@ describe('index', function () {
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/Object property "emitLabError" must be a boolen!/i);
-      done();
     }));
     stream.end();
   });
 
-  it('should emit an error if the test fail', function (done) {
+  it('should emit an error if the test fail', function () {
 
     var failure;
     var stream = Glab({
@@ -108,12 +105,11 @@ describe('index', function () {
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/exited with errors/i);
-      done();
     }));
     stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
-  it('should NOT emit an error if the test fail', function (done) {
+  it('should NOT emit an error if the test fail', function () {
 
     var failure;
     var stream = Glab({
@@ -126,12 +122,11 @@ describe('index', function () {
     stream.once('error', function (error) { failure = error; });
     stream.pipe(es.wait(function () {
       expect(failure).to.equal(undefined);
-      done();
     }));
     stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
-  it('should emit an error if the test fail - missing args', function (done) {
+  it('should emit an error if the test fail - missing args', function () {
 
     var failure;
     var stream = Glab({
@@ -144,12 +139,11 @@ describe('index', function () {
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/exited with errors/i);
-      done();
     }));
     stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
-  it('should NOT emit an error if the test fail - missing args', function (done) {
+  it('should NOT emit an error if the test fail - missing args', function () {
 
     var failure;
     var stream = Glab({
@@ -161,12 +155,11 @@ describe('index', function () {
     stream.once('error', function (error) { failure = error; });
     stream.pipe(es.wait(function () {
       expect(failure).to.equal(undefined);
-      done();
     }));
     stream.end(new Vinyl({path: './test/fail.js'}));
   });
 
-  it('should emit an error when running fail with Array arguments and filter on tests', function (done) {
+  it('should emit an error when running fail with Array arguments and filter on tests', function () {
 
     var failure;
     var stream = Glab({
@@ -180,7 +173,6 @@ describe('index', function () {
     stream.pipe(es.wait(function () {
       expect(failure, 'no error').to.be.an.instanceOf(Error);
       expect(failure.message, 'message').to.match(/exited with errors/i);
-      done();
     }));
     stream.end(new Vinyl({path: './test/fail.js'}));
   });
@@ -191,7 +183,7 @@ describe('index', function () {
     var path;
     var spawn;
 
-    before(function (done) {
+    before(function () {
       var child = new EventEmitter();
       var stream;
 
@@ -204,23 +196,21 @@ describe('index', function () {
 
       // Returned stream should never do anything since spawn is stubbed out.
       stream = Glab('-d -s -l');
-      stream.pipe(es.wait(done));
+      stream.pipe(es.wait(noop));
       stream.end(new Vinyl({path: '/test/truthy.js' }));
       child.emit('exit', 0);
     });
 
-    after(function (done) {
+    after(function () {
       spawn.restore();
       process.execArgv = argv;
       process.execPath = path;
-      done();
     });
 
-    it('invokes the child with the same node arguments as the parent', function (done) {
+    it('invokes the child with the same node arguments as the parent', function () {
       expect(spawn.calledOnce, 'spawn not called').to.be.true;
       expect(spawn.firstCall.args[0], 'wrong command').to.equal('nodejs');
       expect(spawn.firstCall.args[1][0], 'bad argument').to.equal('--harmony');
-      done();
     });
   });
 

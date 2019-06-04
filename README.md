@@ -11,6 +11,11 @@ Gulp-lab supports the same [options as Lab](https://github.com/spumko/lab#comman
 npm install gulp-lab --save-dev
 ```
 
+## @hapi/lab
+
+"@hapi/lab" package is supported in version 2.0. \
+The older version called "lab" is supported in version 1.0.8.
+
 ## NOTES
 
 Gulp-lab can be used with String, Array and Object options or without.
