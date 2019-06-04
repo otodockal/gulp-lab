@@ -41,7 +41,7 @@ module.exports = function (options) {
 
   // We expect that lab was declared as a project dependencies, and run directly its main script
   // this way, it can be executed on every platform.
-  var args = [Join(process.cwd(), 'node_modules', 'lab', 'bin', 'lab')];
+  var args = [Join(process.cwd(), 'node_modules', '@hapi', 'lab', 'bin', 'lab')];
 
   return Through2.obj(function (file, enc, cb) {
 
